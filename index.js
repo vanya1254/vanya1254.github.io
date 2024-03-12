@@ -24,7 +24,9 @@ const renderTableRows = (data = { id: 0, workname: "", url: "", date: "" }) => {
   tableRowsEl.appendChild(tableRow);
 };
 
-projectsData.forEach((project) => renderTableRows(project));
+if (projectsData) {
+  projectsData.forEach((project) => renderTableRows(project));
+}
 
 /**
  * Footer
@@ -32,5 +34,7 @@ projectsData.forEach((project) => renderTableRows(project));
 
 const updateData = await getData(URL, HEADERS.updated);
 
-const updatedEl = document.querySelector(".updated");
-updatedEl.innerHTML = `Портфолио обновлено ${updateData[0].date} в ${updateData[0].time}`;
+if (updateData) {
+  const updatedEl = document.querySelector(".updated");
+  updatedEl.innerHTML = `Портфолио обновлено ${updateData[0].date} в ${updateData[0].time}`;
+}
