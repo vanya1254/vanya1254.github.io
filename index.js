@@ -1,11 +1,13 @@
-const data = await fetch("https://e6530d7c6318dbc8.mokky.dev/projects").then(
-  (res) => res.json()
-); // [{id:'', workname:'', publishedUrl:'', url:'', date:''},]
+/**
+ * Table
+ */
+
+const projectsData = await getData(URL, HEADERS.projects);
 
 const tableRowsEl = document.getElementById("table-rows");
 const tableRowTemplate = document.getElementById("template-table-row").content;
 
-const renderDataRows = (data = { id: 0, workname: "", url: "", date: "" }) => {
+const renderTableRows = (data = { id: 0, workname: "", url: "", date: "" }) => {
   const tableRow = tableRowTemplate.cloneNode(true);
 
   let workname = tableRow.querySelector(".workname");
@@ -22,4 +24,13 @@ const renderDataRows = (data = { id: 0, workname: "", url: "", date: "" }) => {
   tableRowsEl.appendChild(tableRow);
 };
 
-data.forEach((elem) => renderDataRows(elem));
+projectsData.forEach((project) => renderTableRows(project));
+
+/**
+ * Footer
+ */
+
+const updateData = await getData(URL, HEADERS.updated);
+
+const updatedEl = document.querySelector(".updated");
+updatedEl.innerHTML = `Портфолио обновлено ${updateData[0].date} в ${updateData[0].time}`;
